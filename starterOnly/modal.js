@@ -1,3 +1,5 @@
+// ?????
+
 function editNav() {
   const topNav = document.getElementById("myTopnav");
   if (topNav.className === "topnav") {
@@ -27,7 +29,7 @@ const closeModalFunction = () => {
   modalbg.style.display = "none"
 } 
 
-// closeh modal event issue 1
+// close modal event issue 1
 closeBtnForm.addEventListener("click", closeModalFunction)
 
 
