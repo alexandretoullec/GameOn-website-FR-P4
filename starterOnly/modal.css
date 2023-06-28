@@ -53,13 +53,20 @@ img {
 .btn-submit,
 .hero-section__content__btn-signup {
   background: #fe142f; 
-  display: block;
+  display: flex;
   padding: 2em;
   color: #fff;
   padding: 0.75rem 2.5rem;
   border-radius: 1rem;
   cursor: pointer;
   border: none;
+}
+
+.btnSubmit-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
@@ -93,7 +100,6 @@ header {
   width: 100%;
 }
 
-
 .topnav {
   overflow: hidden;
   margin: 3.5%;
@@ -116,33 +122,55 @@ header {
   font-family: Roboto, sans-serif;
 }
 
-.topnav a:hover {
+.topnav a:hover,.topnav a.active {
   background-color: #ff0000;
   color: #ffffff;
   border-radius: 15px;
 }
 
-.topnav a.active {
-  background-color: #ff0000;
-  color: #ffffff;
-  border-radius: 15px;
-}
-
-.topnav .icon {
+.topnav .iconMenu {
   display: none;
 }
 
-@media screen and (max-width: 768px) {
-  .topnav a {display: none;}
-  .topnav a.icon {
-    float: right;
-    display: block;
-  }
-}
 
 @media screen and (max-width: 768px) {
-  .topnav.responsive {position: relative;}
-  .topnav.responsive .icon {
+
+  .main-navbar{
+    /* margin-top: 1rem; */
+  }
+
+  /* position before applying responsive class with js */
+  .topnav a {
+    display: none;
+  }
+  .topnav .iconMenu {
+    height: 3rem;
+    width: 3rem;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: var(--red);
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+  }
+
+  .topnav .iconMenu:hover{
+    background: var(--red);
+    color: var(--white);
+    transition: all 1s;
+  }
+
+  .closeMenu{
+    display: none;
+  }
+  
+  /* after appying responsive class with JS */
+  .topnav.responsive {
+    position: relative;
+  }
+  .topnav.responsive .iconMenu {
     position: absolute;
     right: 0;
     top: 0;
@@ -153,43 +181,16 @@ header {
     text-align: left;
   }
 }
-
-
-
  @media screen and (max-width: 540px) {
   .topnav a {display: none;}
-  .topnav a.icon {
+  .topnav a.iconMenu {
     float: right;
     display: block;
     margin-top: -15px;
   }
 } 
 
-.close {
-  position: absolute;
-  right: 15px;
-  top: 15px;
-  width: 32px;
-  height: 32px;
-  opacity: 1;
-  cursor: pointer;
-  transform: scale(0.7);
-}
-.close:before,
-.close:after {
-  position: absolute;
-  left: 15px;
-  content: " ";
-  height: 33px;
-  width: 3px;
-  background-color: #fff;
-}
-.close:before {
-  transform: rotate(45deg);
-}
-.close:after {
-  transform: rotate(-45deg);
-}
+
 
 
 /* *************************** main ******************************** */
@@ -386,7 +387,7 @@ main {
   background-color: rgba(26, 39, 156, 0.4);
 }
 
-.modalForm__container {
+.modalForm__container,.thanks-container {
   margin: 5% auto;
   width: 100%;
   max-width: 500px;
@@ -477,12 +478,11 @@ input {
 .modalForm__container__form__formData[data-error-visible="true"] .input {
   border: 2px solid #e54858;
 }
-/* 
-input[data-error]::after {
+ input[data-error]::after {
     content: attr(data-error);
     font-size: 0.4em;
     color: red;
-} */
+} 
 
 .checkbox-label,
 .checkbox2-label {
@@ -549,8 +549,36 @@ input[data-error]::after {
   top: 19%;
 }
 
+  /******************* close Icon ******************/
+
+.close {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  width: 32px;
+  height: 32px;
+  opacity: 1;
+  cursor: pointer;
+  transform: scale(0.7);
+}
+.close:before,
+.close:after {
+  position: absolute;
+  left: 15px;
+  content: " ";
+  height: 33px;
+  width: 3px;
+  background-color: #fff;
+}
+.close:before {
+  transform: rotate(45deg);
+}
+.close:after {
+  transform: rotate(-45deg);
+}
 
 
+/* ********************* style applied to selected elements ************** */
 
 /* custom select styles */
 .custom-select {
@@ -625,9 +653,20 @@ input[data-error]::after {
 }
 
 
+/*  thanks when close after using c'est parti button */
 
+.thanks-container{
+  display: none;
+  height: 50rem;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
-
+.thanks-container p{
+  height: 80%;
+  font-size: 30px;
+}
 
 
 /*************** footer  ***************************/
