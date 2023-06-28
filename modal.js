@@ -145,9 +145,9 @@ function errorMsg(input) {
     case "email":
       input.closest(".modalForm__container__form__formData").dataset.error = "merci de renseigner une adresse mail conforme with a @ ";
       break;
-    // case "birthdate":
-    //   input.closest(".modalForm__container__form__formData").dataset.error = "merci de renseigner une date de naissance conforme";
-    //   break;
+    case "birthdate":
+      input.closest(".modalForm__container__form__formData").dataset.error = "merci de renseigner une date de naissance conforme";
+      break;
     case "quantity":
       input.closest(".modalForm__container__form__formData").dataset.error = "merci de rensigner un nombre de participation même si celle ci est nulle";
       break;
