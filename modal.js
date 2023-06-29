@@ -62,35 +62,29 @@ const closeModalFunction = () => {
 closeBtnForms.forEach(closeBtnForm => closeBtnForm.addEventListener("click", closeModalFunction))
 
 
-// Hiding form pressing c'est parti button and showing merci container 
 
 
+// ***************** checking if form is fully completed
 
-// DOM elemnts 
+        // ********** DOM for form validation *************************
+
 const form = document.querySelector(".modalForm__container");
 const formDatas = document.querySelectorAll(".modalForm__container__form__formData");
 const bntSubmit = document.querySelector(".btn-submit");
 const thanks = document.querySelector(".thanks-container");
 const closeBtn = document.querySelector(".btn-close");
+const formInputs =document.querySelectorAll(".input");
 const radioCont = document.querySelector('input[type="radio"]').parentElement;
 
-
-// ***************** checking if form is fully completed
-
-        // ********** DOM  
-const formInputs =document.querySelectorAll(".input");
-
+      // ********** REGEX form validation *************************
 
 const standardRegex = new RegExp(/^[a-zA-Z-]{2,}/);
 const emailRegex = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
-const birthRegex = new RegExp(/^(?:0[1-9]|[12]\d|3[01])([\/.-])(?:0[1-9]|1[012])\1(?:19|20)\d\d$/)
+// const birthRegex = new RegExp(/^(?:0[1-9]|[12]\d|3[01])([\/.-])(?:0[1-9]|1[012])\1(?:19|20)\d\d$/)
 
 const formValidation = () => {
-  // inputContReset();
   form.style.display = "none";
   thanks.style.display = "flex";
-  
-  // modalbg.style.display = "none";
 }
 
   // function which look for each input according to its id specific regex
@@ -104,7 +98,8 @@ const inputCheck = (input) => {
     case "email" : 
       return emailRegex.test(input.value);
     case "birthdate":
-        return !!input.value;
+       // juste to make sure a value has been entered 
+        return input.value;
     case "quantity":
       // return a number
       return parseInt(input.value);
@@ -114,8 +109,9 @@ const inputCheck = (input) => {
 }
 
 const errorMsg = (input) => {
-  
+  // closest is used to select the closest element for the input which has the selected class modalForm__container__form__formData and add the dataset attribute -error-visible which a value of true
   input.closest(".modalForm__container__form__formData").setAttribute("data-error-visible" , true);
+  // using swith for the first five inputs and add a msg error  
   switch(input.id) {
     case "first" :
       input.closest(".modalForm__container__form__formData").dataset.error = "Merci de renseigenr un prénom d'au moins deux charactères";
@@ -138,7 +134,7 @@ const errorMsg = (input) => {
 }
 
 
-// verifying if a checkbox has been checked
+// verifying if a checkbox has been checked for the city
 
 const checkboxCheck = () => {
     for (let checkbox of checkboxs){
@@ -149,10 +145,9 @@ const checkboxCheck = () => {
     return false;
 }
 
-
+// show a message if no cities have been checked 
 
 const errorMsgCity = () => {
-  
   radioCont.setAttribute("data-error-visible" , true);
   radioCont.dataset.error = "Merci de selectionner une ville pour participer au trounoi de votre choix";
 }
@@ -162,15 +157,6 @@ const errorMsgCity = () => {
 
 const generalCondition = document.querySelector('#checkbox1');
 const generalConditionCont = generalCondition.parentElement;
-
-
-const checkGenralCondition = () => {
-  if (generalCondition.checked){
-    return true;
-  }else{
-    return false;
-  }
-}
 
 const messageGeneralCondition = () => {
   generalConditionCont.setAttribute("data-error-visible" , true)
@@ -185,8 +171,6 @@ const messageGeneralCondition = () => {
   // setAddAttribute data-error-visible to true 
   // add message error 
   // set isValid to false
-
-
 
 const checkForm = () => {
   // boolean true by default
@@ -208,14 +192,12 @@ const checkForm = () => {
     isValid=false;
   }
 
+   // check if general conditions have been approved!!
+
   if(!generalCondition.checked){
     messageGeneralCondition()
     isValid=false;
   }
-
-  // check if general conditions have been approved!!
-
-    
   
   // if isValid still true launch function formaValidation
   if (isValid) {
