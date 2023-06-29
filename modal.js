@@ -27,26 +27,35 @@ function editNav () {
   }
 }
 
+
+// ********************** Form Validation ****************************************
+
 // DOM Elements for form
 const modalbg = document.querySelector(".modalForm-bg");
 const modalBtns = document.querySelectorAll(".modal-btn");
+const signups = document.querySelectorAll(".hero-section__content__btn-signup");
+const closeBtnForms = document.querySelectorAll(".close,.btn-close");
+const checkboxs = document.querySelectorAll('input[type="radio"]')
 
-const closeBtnForms = document.querySelectorAll(".close");
 
-
-// launch modal event
-modalBtns.forEach(modalBtn => modalBtn.addEventListener("click", launchModal));
 
 // launch modal form
-function launchModal() {
+const launchModal = () => {
+  
   form.style.display = "block";
+  inputContReset();
+  errorMsgReset();
   thanks.style.display = "none";
   modalbg.style.display = "block";
 }
 
+// launch modal event
+signups.forEach(signup => signup.addEventListener("click", launchModal));
+
 // close modal form issue 1
 const closeModalFunction = () => {
   modalbg.style.display = "none";
+  
 } 
 
 // close modal event issue 1
@@ -55,66 +64,38 @@ closeBtnForms.forEach(closeBtnForm => closeBtnForm.addEventListener("click", clo
 
 // Hiding form pressing c'est parti button and showing merci container 
 
+
+
 // DOM elemnts 
 const form = document.querySelector(".modalForm__container");
 const formDatas = document.querySelectorAll(".modalForm__container__form__formData");
-const startBtn = document.querySelector(".btn-submit");
+const bntSubmit = document.querySelector(".btn-submit");
 const thanks = document.querySelector(".thanks-container");
 const closeBtn = document.querySelector(".btn-close");
 
-
-function validate (e) {
-    e.preventDefault();
-    errorMsgReset();
-    checkForm();
-} 
-
-function formValidation () {
-  form.style.display = "none";
-  thanks.style.display = "flex";
-}
-
-closeBtn.addEventListener("click", closeModalFunction);
-
-startBtn.addEventListener("click", validate);
 
 
 // ***************** checking if form is fully completed
 
         // ********** DOM  
-  const formInputs =document.querySelectorAll(".input");
+const formInputs =document.querySelectorAll(".input");
 
 
 const standardRegex = new RegExp(/^[a-zA-Z-]{2,}/);
 const emailRegex = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
 const birthRegex = new RegExp(/^(?:0[1-9]|[12]\d|3[01])([\/.-])(?:0[1-9]|1[012])\1(?:19|20)\d\d$/)
 
-
-
-function checkForm () {
-  // boolean true by default
-  let isValid = true;
-
-  // checking if input verify the rules using a function and a for each
-
-  formInputs.forEach(formInput => {
-     if (!inputCheck(formInput)){
-      errorMsg(formInput);
-      isValid=false;
-     } 
-    }
-  )
+const formValidation = () => {
+  // inputContReset();
+  form.style.display = "none";
+  thanks.style.display = "flex";
   
-  // if isVAlid still true launch function formaValidation
-  if (isValid) {
-    formValidation()
-  }
-  }
-
+  // modalbg.style.display = "none";
+}
 
   // function which look for each input according to its id specific regex
 
-function inputCheck (input) {
+const inputCheck = (input) => {
   switch(input.id){
     case "first" : 
       return standardRegex.test(input.value);
@@ -132,7 +113,7 @@ function inputCheck (input) {
   }
 }
 
-function errorMsg(input) {
+const errorMsg = (input) => {
   
   input.closest(".modalForm__container__form__formData").setAttribute("data-error-visible" , true);
   switch(input.id) {
@@ -156,17 +137,79 @@ function errorMsg(input) {
   }
 }
 
-function errorMsgReset() {
-  const inputs = document.querySelectorAll('input');
 
-  inputs.forEach(input => {
+// verifying if a checkbox has been checked
+
+const checkboxCheck = () => {
+    for (let checkbox of checkboxs){
+      if (checkbox.checked){
+        return true;
+      }
+    }
+    return false;
+}
+
+const radioCont = document.querySelector('input[type="radio"]').parentElement;
+
+const errorMsgCity = () => {
+  
+  radioCont.setAttribute("data-error-visible" , true);
+  radioCont.dataset.error = "Merci de selectionner une ville pour participer au trounoi de votre choix";
+}
+
+const checkForm = () => {
+  // boolean true by default
+  let isValid = true;
+
+  // checking if input verify the rules using a function and a for each
+
+  formInputs.forEach(formInput => {
+     if (!inputCheck(formInput)){
+      errorMsg(formInput);
+      isValid=false;
+     } 
+    }
+  )
+
+    if(!checkboxCheck()){
+      errorMsgCity();
+      isValid=false;
+    }
+  
+  // if isValid still true launch function formaValidation
+  if (isValid) {
+    formValidation()
+  }
+}
+
+
+
+const errorMsgReset = () => {
+  formInputs.forEach(input => {
     const inputCont = input.parentElement;
     inputCont.dataset.error = "";
     inputCont.setAttribute("data-error-visible", "false");
 
   })
+  radioCont.dataset.error = "";
+  radioCont.setAttribute("data-error-visible", "false");
+
 }
 
+const inputContReset = () => {
+  formInputs.forEach(input => {
+    input.value = "";
+  })
+}
+
+// validation form when passed all tests
+
+const validate = (e) => {
+  e.preventDefault();
+  errorMsgReset();  
+  checkForm();
+} 
 
 
+bntSubmit.addEventListener("click", validate);
 
