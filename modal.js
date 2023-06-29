@@ -72,7 +72,7 @@ const formDatas = document.querySelectorAll(".modalForm__container__form__formDa
 const bntSubmit = document.querySelector(".btn-submit");
 const thanks = document.querySelector(".thanks-container");
 const closeBtn = document.querySelector(".btn-close");
-
+const radioCont = document.querySelector('input[type="radio"]').parentElement;
 
 
 // ***************** checking if form is fully completed
@@ -149,7 +149,7 @@ const checkboxCheck = () => {
     return false;
 }
 
-const radioCont = document.querySelector('input[type="radio"]').parentElement;
+
 
 const errorMsgCity = () => {
   
@@ -157,11 +157,42 @@ const errorMsgCity = () => {
   radioCont.dataset.error = "Merci de selectionner une ville pour participer au trounoi de votre choix";
 }
 
+
+// check if general conditions have been approved!!
+
+const generalCondition = document.querySelector('#checkbox1');
+const generalConditionCont = generalCondition.parentElement;
+
+
+const checkGenralCondition = () => {
+  if (generalCondition.checked){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+const messageGeneralCondition = () => {
+  generalConditionCont.setAttribute("data-error-visible" , true)
+  generalConditionCont.dataset.error = "Veuillez accepter les conditions général de ventes"
+}
+
+//dom input type checkbox
+//verify if it has been checked
+// if true => valid
+// if false 
+  //select parent container 
+  // setAddAttribute data-error-visible to true 
+  // add message error 
+  // set isValid to false
+
+
+
 const checkForm = () => {
   // boolean true by default
   let isValid = true;
 
-  // checking if input verify the rules using a function and a for each
+  // check if input verify the rules using a function and a for each
 
   formInputs.forEach(formInput => {
      if (!inputCheck(formInput)){
@@ -170,11 +201,21 @@ const checkForm = () => {
      } 
     }
   )
+  
+  // check if one checkboxcity have been checked 
+  if(!checkboxCheck()){
+    errorMsgCity();
+    isValid=false;
+  }
 
-    if(!checkboxCheck()){
-      errorMsgCity();
-      isValid=false;
-    }
+  if(!generalCondition.checked){
+    messageGeneralCondition()
+    isValid=false;
+  }
+
+  // check if general conditions have been approved!!
+
+    
   
   // if isValid still true launch function formaValidation
   if (isValid) {
@@ -193,7 +234,8 @@ const errorMsgReset = () => {
   })
   radioCont.dataset.error = "";
   radioCont.setAttribute("data-error-visible", "false");
-
+  generalConditionCont.dataset.error = "";
+  generalConditionCont.setAttribute("data-error-visible", "false");
 }
 
 const inputContReset = () => {
