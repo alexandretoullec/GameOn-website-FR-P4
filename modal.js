@@ -114,16 +114,16 @@ const errorMsg = (input) => {
   // using swith for the first five inputs and add a msg error  
   switch(input.id) {
     case "first" :
-      input.closest(".modalForm__container__form__formData").dataset.error = "Merci de renseigenr un prénom d'au moins deux charactères";
+      input.closest(".modalForm__container__form__formData").dataset.error = "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
       break;
     case "last" :
-      input.closest(".modalForm__container__form__formData").dataset.error = "Merci de renseigenr un nom d'au moins deux charactères";
+      input.closest(".modalForm__container__form__formData").dataset.error = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
       break;
     case "email":
       input.closest(".modalForm__container__form__formData").dataset.error = "merci de renseigner une adresse mail conforme with a @ ";
       break;
     case "birthdate":
-      input.closest(".modalForm__container__form__formData").dataset.error = "merci de renseigner une date de naissance conforme";
+      input.closest(".modalForm__container__form__formData").dataset.error = "Vous devez entrer votre date de naissance.";
       break;
     case "quantity":
       input.closest(".modalForm__container__form__formData").dataset.error = "merci de rensigner un nombre de participation même si celle ci est nulle";
@@ -149,7 +149,7 @@ const checkboxCheck = () => {
 
 const errorMsgCity = () => {
   radioCont.setAttribute("data-error-visible" , true);
-  radioCont.dataset.error = "Merci de selectionner une ville pour participer au trounoi de votre choix";
+  radioCont.dataset.error = "Vous devez choisir une option.";
 }
 
 
@@ -160,7 +160,7 @@ const generalConditionCont = generalCondition.parentElement;
 
 const messageGeneralCondition = () => {
   generalConditionCont.setAttribute("data-error-visible" , true)
-  generalConditionCont.dataset.error = "Veuillez accepter les conditions général de ventes"
+  generalConditionCont.dataset.error = "Vous devez vérifier que vous acceptez les termes et conditions."
 }
 
 //dom input type checkbox
