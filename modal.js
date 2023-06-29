@@ -134,7 +134,7 @@ function inputCheck (input) {
 
 function errorMsg(input) {
   
-  input.closest(".modalForm__container__form__formData").setAttribute("data-error-visible" , true)
+  input.closest(".modalForm__container__form__formData").setAttribute("data-error-visible" , true);
   switch(input.id) {
     case "first" :
       input.closest(".modalForm__container__form__formData").dataset.error = "Merci de renseigenr un prénom d'au moins deux charactères";
