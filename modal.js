@@ -1,176 +1,175 @@
-// ******************Responsive menu*****************
-
-    // Dom for menu
+// Dom for menu
 
 const openMenu = document.querySelector(".openMenu");
 const closeMenu = document.querySelector(".closeMenu");
 const menu = document.querySelector(".iconMenu");
-
-
-    // Event listener
-menu.addEventListener("click",editNav);
-
-
-    // function for responsive menu
-
-function editNav () {
-  const topNav = document.getElementById("myTopnav");
-  if (topNav.className === "topnav") {
-    topNav.className += " responsive";
-    openMenu.style.display="none"
-    closeMenu.style.display="block"
-
-  } else {
-    topNav.className = "topnav";
-    closeMenu.style.display="none";
-    openMenu.style.display="block"
-  }
-}
-
-
-// ********************** Form Validation ****************************************
 
 // DOM Elements for form
 const modalbg = document.querySelector(".modalForm-bg");
 const modalBtns = document.querySelectorAll(".modal-btn");
 const signups = document.querySelectorAll(".hero-section__content__btn-signup");
 const closeBtnForms = document.querySelectorAll(".close,.btn-close");
-const checkboxs = document.querySelectorAll('input[type="radio"]')
+const checkboxs = document.querySelectorAll('input[type="radio"]');
 
+// ******************Responsive menu*****************
 
+// function for responsive menu
+
+const editNav = () => {
+  const topNav = document.getElementById("myTopnav");
+  if (topNav.className === "topnav") {
+    topNav.className += " responsive";
+    openMenu.style.display = "none";
+    closeMenu.style.display = "block";
+  } else {
+    topNav.className = "topnav";
+    closeMenu.style.display = "none";
+    openMenu.style.display = "block";
+  }
+};
+
+// Event listener
+menu.addEventListener("click", editNav);
+
+// ********************** Form Validation ****************************************
 
 // launch modal form
 const launchModal = () => {
-  
   form.style.display = "block";
   inputContReset();
   errorMsgReset();
   thanks.style.display = "none";
   modalbg.style.display = "block";
-}
+};
 
 // launch modal event
-signups.forEach(signup => signup.addEventListener("click", launchModal));
+signups.forEach((signup) => signup.addEventListener("click", launchModal));
 
 // close modal form issue 1
 const closeModalFunction = () => {
   modalbg.style.display = "none";
-  
-} 
+};
 
 // close modal event issue 1
-closeBtnForms.forEach(closeBtnForm => closeBtnForm.addEventListener("click", closeModalFunction))
-
-
-
+closeBtnForms.forEach((closeBtnForm) =>
+  closeBtnForm.addEventListener("click", closeModalFunction)
+);
 
 // ***************** checking if form is fully completed
 
-        // ********** DOM for form validation *************************
+// ********** DOM for form validation *************************
 
 const form = document.querySelector(".modalForm__container");
-const formDatas = document.querySelectorAll(".modalForm__container__form__formData");
+const formDatas = document.querySelectorAll(
+  ".modalForm__container__form__formData"
+);
 const bntSubmit = document.querySelector(".btn-submit");
 const thanks = document.querySelector(".thanks-container");
 const closeBtn = document.querySelector(".btn-close");
-const formInputs =document.querySelectorAll(".input");
+const formInputs = document.querySelectorAll(".input");
 const radioCont = document.querySelector('input[type="radio"]').parentElement;
 
-      // ********** REGEX form validation *************************
+// ********** REGEX form validation *************************
 
-const standardRegex = new RegExp(/^[a-zA-Z-]{2,}/);
+const standardRegex = new RegExp(/^[\w-\.]{2,}/);
 const emailRegex = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
 // const birthRegex = new RegExp(/^(?:0[1-9]|[12]\d|3[01])([\/.-])(?:0[1-9]|1[012])\1(?:19|20)\d\d$/)
 
 const formValidation = () => {
   form.style.display = "none";
   thanks.style.display = "flex";
-}
+};
 
-  // function which look for each input according to its id specific regex
+// function which look for each input according to its id specific regex
 
 const inputCheck = (input) => {
-  switch(input.id){
-    case "first" : 
+  switch (input.id) {
+    case "first":
       return standardRegex.test(input.value);
-    case "last" : 
+    case "last":
       return standardRegex.test(input.value);
-    case "email" : 
+    case "email":
       return emailRegex.test(input.value);
     case "birthdate":
-       // juste to make sure a value has been entered 
-        return input.value;
+      // juste to make sure a value has been entered
+      return input.value;
     case "quantity":
       // return a number
       return parseInt(input.value);
     default:
       return false;
   }
-}
+};
 
 const errorMsg = (input) => {
   // closest is used to select the closest element for the input which has the selected class modalForm__container__form__formData and add the dataset attribute -error-visible which a value of true
-  input.closest(".modalForm__container__form__formData").setAttribute("data-error-visible" , true);
-  // using swith for the first five inputs and add a msg error  
-  switch(input.id) {
-    case "first" :
-      input.closest(".modalForm__container__form__formData").dataset.error = "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
+  input
+    .closest(".modalForm__container__form__formData")
+    .setAttribute("data-error-visible", true);
+  // using swith for the first five inputs and add a msg error
+  switch (input.id) {
+    case "first":
+      input.closest(".modalForm__container__form__formData").dataset.error =
+        "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
       break;
-    case "last" :
-      input.closest(".modalForm__container__form__formData").dataset.error = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
+    case "last":
+      input.closest(".modalForm__container__form__formData").dataset.error =
+        "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
       break;
     case "email":
-      input.closest(".modalForm__container__form__formData").dataset.error = "merci de renseigner une adresse mail conforme with a @ ";
+      input.closest(".modalForm__container__form__formData").dataset.error =
+        "Merci de renseigner une adresse mail conforme";
       break;
     case "birthdate":
-      input.closest(".modalForm__container__form__formData").dataset.error = "Vous devez entrer votre date de naissance.";
+      input.closest(".modalForm__container__form__formData").dataset.error =
+        "Vous devez entrer votre date de naissance.";
       break;
     case "quantity":
-      input.closest(".modalForm__container__form__formData").dataset.error = "merci de rensigner un nombre de participation même si celle ci est nulle";
+      input.closest(".modalForm__container__form__formData").dataset.error =
+        "Merci de rensigner un nombre de participation";
       break;
     default:
       return "";
   }
-}
-
+};
 
 // verifying if a checkbox has been checked for the city
 
 const checkboxCheck = () => {
-    for (let checkbox of checkboxs){
-      if (checkbox.checked){
-        return true;
-      }
+  for (let checkbox of checkboxs) {
+    if (checkbox.checked) {
+      return true;
     }
-    return false;
-}
+  }
+  return false;
+};
 
-// show a message if no cities have been checked 
+// show a message if no cities have been checked
 
 const errorMsgCity = () => {
-  radioCont.setAttribute("data-error-visible" , true);
+  radioCont.setAttribute("data-error-visible", true);
   radioCont.dataset.error = "Vous devez choisir une option.";
-}
-
+};
 
 // check if general conditions have been approved!!
 
-const generalCondition = document.querySelector('#checkbox1');
+const generalCondition = document.querySelector("#checkbox1");
 const generalConditionCont = generalCondition.parentElement;
 
 const messageGeneralCondition = () => {
-  generalConditionCont.setAttribute("data-error-visible" , true)
-  generalConditionCont.dataset.error = "Vous devez vérifier que vous acceptez les termes et conditions."
-}
+  generalConditionCont.setAttribute("data-error-visible", true);
+  generalConditionCont.dataset.error =
+    "Vous devez vérifier que vous acceptez les termes et conditions.";
+};
 
 //dom input type checkbox
 //verify if it has been checked
 // if true => valid
-// if false 
-  //select parent container 
-  // setAddAttribute data-error-visible to true 
-  // add message error 
-  // set isValid to false
+// if false
+//select parent container
+// setAddAttribute data-error-visible to true
+// add message error
+// set isValid to false
 
 const checkForm = () => {
   // boolean true by default
@@ -178,62 +177,56 @@ const checkForm = () => {
 
   // check if input verify the rules using a function and a for each
 
-  formInputs.forEach(formInput => {
-     if (!inputCheck(formInput)){
+  formInputs.forEach((formInput) => {
+    if (!inputCheck(formInput)) {
       errorMsg(formInput);
-      isValid=false;
-     } 
+      isValid = false;
     }
-  )
-  
-  // check if one checkboxcity have been checked 
-  if(!checkboxCheck()){
+  });
+
+  // check if one checkboxcity have been checked
+  if (!checkboxCheck()) {
     errorMsgCity();
-    isValid=false;
+    isValid = false;
   }
 
-   // check if general conditions have been approved!!
+  // check if general conditions have been approved!!
 
-  if(!generalCondition.checked){
-    messageGeneralCondition()
-    isValid=false;
+  if (!generalCondition.checked) {
+    messageGeneralCondition();
+    isValid = false;
   }
-  
+
   // if isValid still true launch function formaValidation
   if (isValid) {
-    formValidation()
+    formValidation();
   }
-}
-
-
+};
 
 const errorMsgReset = () => {
-  formInputs.forEach(input => {
+  formInputs.forEach((input) => {
     const inputCont = input.parentElement;
     inputCont.dataset.error = "";
     inputCont.setAttribute("data-error-visible", "false");
-
-  })
+  });
   radioCont.dataset.error = "";
   radioCont.setAttribute("data-error-visible", "false");
   generalConditionCont.dataset.error = "";
   generalConditionCont.setAttribute("data-error-visible", "false");
-}
+};
 
 const inputContReset = () => {
-  formInputs.forEach(input => {
+  formInputs.forEach((input) => {
     input.value = "";
-  })
-}
+  });
+};
 
 // validation form when passed all tests
 
 const validate = (e) => {
   e.preventDefault();
-  errorMsgReset();  
+  errorMsgReset();
   checkForm();
-} 
-
+};
 
 bntSubmit.addEventListener("click", validate);
-
