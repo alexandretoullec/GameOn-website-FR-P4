@@ -9,7 +9,17 @@ const modalbg = document.querySelector(".modalForm-bg");
 const modalBtns = document.querySelectorAll(".modal-btn");
 const signups = document.querySelectorAll(".hero-section__content__btn-signup");
 const closeBtnForms = document.querySelectorAll(".close,.btn-close");
-const checkboxs = document.querySelectorAll('input[type="radio"]');
+
+// DOM for form validation
+const form = document.querySelector(".modalForm__container");
+const formDatas = document.querySelectorAll(
+  ".modalForm__container__form__formData"
+);
+const bntSubmit = document.querySelector(".btn-submit");
+const thanks = document.querySelector(".thanks-container");
+const formInputs = document.querySelectorAll(".input");
+const radios = document.querySelectorAll('input[type="radio"]');
+const radioCont = document.querySelector('input[type="radio"]').parentElement;
 
 // ******************Responsive menu*****************
 
@@ -31,7 +41,7 @@ const editNav = () => {
 // Event listener
 menu.addEventListener("click", editNav);
 
-// ********************** Form Validation ****************************************
+// ********************** Open close Form ****************************************
 
 // launch modal form
 const launchModal = () => {
@@ -55,32 +65,14 @@ closeBtnForms.forEach((closeBtnForm) =>
   closeBtnForm.addEventListener("click", closeModalFunction)
 );
 
-// ***************** checking if form is fully completed
+// ********************** Form Validation ****************************************
 
-// ********** DOM for form validation *************************
-
-const form = document.querySelector(".modalForm__container");
-const formDatas = document.querySelectorAll(
-  ".modalForm__container__form__formData"
-);
-const bntSubmit = document.querySelector(".btn-submit");
-const thanks = document.querySelector(".thanks-container");
-const closeBtn = document.querySelector(".btn-close");
-const formInputs = document.querySelectorAll(".input");
-const radioCont = document.querySelector('input[type="radio"]').parentElement;
+// function which look for each input according to specific regex
 
 // ********** REGEX form validation *************************
 
 const standardRegex = new RegExp(/^[\w-\.]{2,}/);
 const emailRegex = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
-// const birthRegex = new RegExp(/^(?:0[1-9]|[12]\d|3[01])([\/.-])(?:0[1-9]|1[012])\1(?:19|20)\d\d$/)
-
-const formValidation = () => {
-  form.style.display = "none";
-  thanks.style.display = "flex";
-};
-
-// function which look for each input according to its id specific regex
 
 const inputCheck = (input) => {
   switch (input.id) {
@@ -102,7 +94,7 @@ const inputCheck = (input) => {
 };
 
 const errorMsg = (input) => {
-  // closest is used to select the closest element for the input which has the selected class modalForm__container__form__formData and add the dataset attribute -error-visible which a value of true
+  // closest is used to select the closest element for the input which has the selected class modalForm__container__form__formData and add the dataset attribute -error-visible whith a value of true
   input
     .closest(".modalForm__container__form__formData")
     .setAttribute("data-error-visible", true);
@@ -136,8 +128,8 @@ const errorMsg = (input) => {
 // verifying if a checkbox has been checked for the city
 
 const checkboxCheck = () => {
-  for (let checkbox of checkboxs) {
-    if (checkbox.checked) {
+  for (let radio of radios) {
+    if (radio.checked) {
       return true;
     }
   }
@@ -162,21 +154,16 @@ const messageGeneralCondition = () => {
     "Vous devez vérifier que vous acceptez les termes et conditions.";
 };
 
-//dom input type checkbox
-//verify if it has been checked
-// if true => valid
-// if false
-//select parent container
-// setAddAttribute data-error-visible to true
-// add message error
-// set isValid to false
+const formValidation = () => {
+  form.style.display = "none";
+  thanks.style.display = "flex";
+};
 
 const checkForm = () => {
   // boolean true by default
   let isValid = true;
 
   // check if input verify the rules using a function and a for each
-
   formInputs.forEach((formInput) => {
     if (!inputCheck(formInput)) {
       errorMsg(formInput);
@@ -191,7 +178,6 @@ const checkForm = () => {
   }
 
   // check if general conditions have been approved!!
-
   if (!generalCondition.checked) {
     messageGeneralCondition();
     isValid = false;
