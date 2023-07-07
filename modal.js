@@ -87,7 +87,7 @@ const inputCheck = (input) => {
       return input.value;
     case "quantity":
       // return a number
-      return parseInt(input.value);
+      return parseInt(input.value) >= 0;
     default:
       return false;
   }
