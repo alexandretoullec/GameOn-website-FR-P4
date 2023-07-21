@@ -93,6 +93,8 @@ const inputCheck = (input) => {
   }
 };
 
+//error msg when the entry is wrong
+
 const errorMsg = (input) => {
   // closest is used to select the closest element for the input which has the selected class modalForm__container__form__formData and add the dataset attribute -error-visible whith a value of true
   input
