@@ -46,7 +46,7 @@ menu.addEventListener("click", editNav);
 // launch modal form
 const launchModal = () => {
   form.style.display = "block";
-  inputContReset();
+
   errorMsgReset();
   thanks.style.display = "none";
   modalbg.style.display = "block";
@@ -161,6 +161,10 @@ const formValidation = () => {
   thanks.style.display = "flex";
 };
 
+/** *************************************************************
+ **************** CheckForm **************************************
+ ***************************************************************** */
+
 const checkForm = () => {
   // boolean true by default
   let isValid = true;
@@ -188,8 +192,11 @@ const checkForm = () => {
   // if isValid still true launch function formaValidation
   if (isValid) {
     formValidation();
+    inputContReset();
   }
 };
+
+// error message reset
 
 const errorMsgReset = () => {
   formInputs.forEach((input) => {
@@ -203,6 +210,7 @@ const errorMsgReset = () => {
   generalConditionCont.setAttribute("data-error-visible", "false");
 };
 
+// input content reset
 const inputContReset = () => {
   formInputs.forEach((input) => {
     input.value = "";
